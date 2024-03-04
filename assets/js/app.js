@@ -7,9 +7,13 @@
         const inputElement = document.querySelector("input");
         const newItem = inputElement.value;
        
+        if(newItem) {
         allItems.push(newItem);
         populateItems(allItems);
         inputElement.value = "";
+        }
+        
+
     }
 
     function populateItems(allItems) {
@@ -24,6 +28,7 @@
         });
         listsElement.innerHTML = allElements.join("");
     }
+
 
     document.getElementById("add_new_btn").addEventListener("click", addNewItem);
 })();
