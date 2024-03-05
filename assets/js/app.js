@@ -1,5 +1,5 @@
 (() => {
-    const allItems = [];
+    let allItems = ["Study Web Development Courses"];
 
     function populateTotalItems (count) {
         const totalElement = document.getElementById("total");
@@ -32,10 +32,24 @@
         allItems.forEach((item) => {
             allElements.push(`<div>
                 <span>${item}</span>
-                <input type="checkbox" >
+                <input class="check-item" type="checkbox" >
             </div>`);
         });
         listsElement.innerHTML = allElements.join("");
+        handleCheckbox();
+    }
+
+    function handleCheckbox() {
+        const checkItems = document.querySelectorAll(".check-item");
+        checkItems.forEach((checkItem) => {
+            checkItem.addEventListener("click", (event) => {
+                const checkElement = event.target;
+                const itemValue = checkElement.parentElement.childNodes[1].textContent;
+                allItems = allItems.filter((item) => item !== itemValue);
+                populateItems(allItems);
+                populateTotalItems(allItems.length);
+            });
+        })
     }
 
     
@@ -62,10 +76,6 @@
         }
         
     }
-
-
-
-
     
     document.querySelector("input").addEventListener("focus", () => {
         const inputElement = document.querySelector("input");
@@ -74,4 +84,5 @@
     document.getElementById("add_new_btn").addEventListener("click", addNewItem);
     document.getElementById("view-btn").addEventListener("click", showAllItems);
     toggleViewButton();
+    populateItems(allItems);
 })();
